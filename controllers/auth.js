@@ -27,7 +27,7 @@ exports.signin = (req, res) => {
     // create authentication method in model and use here
     if (!user.authenticate(password)) {
       return res.status(401).json({
-        error: "Email and password do not mathch."
+        error: "Email and password do not match."
       });
     }
     // Generate a token with user id and sectret
@@ -40,4 +40,9 @@ exports.signin = (req, res) => {
     const { _id, name, email } = user;
     return res.json({ token, user: { _id, email, name } });
   });
+};
+
+exports.signout = (req, res) => {
+  res.clearCookie("t");
+  return res.json({ message: "Signout success!" });
 };
